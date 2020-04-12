@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
+
 	<title>Login V1</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +29,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="images/img-01.png" alt="IMG">
+					<img src="{% static 'images/img-01.png' %}"alt="IMG">
 				</div>
 
 				<form class="login100-form validate-form">
