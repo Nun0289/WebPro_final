@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+     <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Gin khao Gun!</h1>
+      <br>
+      <br>
+      <br>
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="{{ restaurant.image_url }}">
+          <div class="card-body">
+            <h4 class="card-title">{{ restaurant.name }}</h4>
+            <p class="card-text">{{ restaurant.description }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'restaurant_page' restaurant_id=restaurant.id %}" class="btn btn-primary">สั่งเลย</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="{{ restaurant.image_url }}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">{{ restaurant.name }}</h4>
+            <p class="card-text">{{ restaurant.description }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'restaurant_page' restaurant_id=restaurant.id %}" class="btn btn-primary">สั่งเลย</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="{{ restaurant.image_url }}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">{{ restaurant.name }}</h4>
+            <p class="card-text">{{ restaurant.description }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'restaurant_page' restaurant_id=restaurant.id %}" class="btn btn-primary">สั่งเลย</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="{{ restaurant.image_url }}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">{{ restaurant.name }}</h4>
+            <p class="card-text">{{ restaurant.description }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'restaurant_page' restaurant_id=restaurant.id %}" class="btn btn-primary">สั่งเลย</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
