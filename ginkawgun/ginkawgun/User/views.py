@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 def app_login(request):
@@ -29,15 +29,27 @@ def app_logout(request):
     return redirect('login')
 
 def app_register(request):
+    context = {}
+    print("1")
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            login(request, user)
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2 = request.POST.get('cpassword')
+        print(password)
+        print(password2)
+        if password == password2:
+            user = User.objects.create_user(username, email, password)
+            user.first_name = fname
+            user.last_name = lname
+            user.save()
+            print("OK")
             return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, template_name='register.html')
+        else:
+            context['error'] = 'Password Not Match!!!'
+            return render(request, template_name='register.html', context=context)
+            print("NO")
+    
+    return render(request, template_name='register.html', context=context)
