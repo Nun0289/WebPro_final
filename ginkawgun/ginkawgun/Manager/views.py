@@ -5,3 +5,5 @@ def app_homepage(request):
     return render(request, template_name='home.html')
 def app_food_detail(request):
     return render(request, template_name='food_detail.html')
+def app_add_food(request):
+    return render(request, template_name='add_food.html')

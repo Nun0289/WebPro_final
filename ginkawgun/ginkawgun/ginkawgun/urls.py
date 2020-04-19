@@ -23,5 +23,7 @@ urlpatterns = [
     path('register/',user_views.app_register,name='register'),
     path('admin/', admin.site.urls ,name='admin'),
     path('food_detail/', manager_views.app_food_detail,name='food_detail'),
-    path('',manager_views.app_homepage, name='homepage')
+    path('',manager_views.app_homepage, name='homepage'),
+    path('addfood/',manager_views.app_add_food, name='add_food'),
+
 ]
