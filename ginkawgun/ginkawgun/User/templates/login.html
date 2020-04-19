@@ -5,6 +5,28 @@
 
 <html lang="en">
 <head>
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
 	<title>Login V1</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +60,10 @@
 						Member Login
 					</span>
 					{% if error %}
+					<div class="alert">
+  						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  						<strong>Error </strong>{{error}}
+					</div>
 					{% endif %}
 					<div class="wrap-input100 validate-input">
 						<input class="input100" type="text" name="username" placeholder="Username">
@@ -65,7 +91,7 @@
 							Forgot
 						</span>
 						<a class="txt2" href="#">
-							Username / Password?
+						Password?
 						</a>
 					</div>
 
