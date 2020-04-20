@@ -1,8 +1,6 @@
 from django.db import models
+from User.models import Vendor, Customer
 
-# Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
 # Create your models here.
 
 class Type(models.Model):
@@ -20,12 +18,6 @@ class Restaurant(models.Model):
     def __str__(self):
         return '(%s) %s' % (self.type_id.name, self.name)
 
-class Menu(models.Model):
-    name = models.CharField(max_length=255)
-    picture = models.CharField(max_length=255)
-    price = models.FloatField()
-    description = models.TextField()
-
 class Order(models.Model):
     total_price = models.FloatField()
     payment = models.CharField(max_length=255)
@@ -36,7 +28,21 @@ class Order_list(models.Model):
     description = models.TextField()
     unit_price = models.FloatField()
 
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+
 
 class feedback(models.Model):
     date = models.DateField(auto_now_add=True)
     description = models.TextField()
+
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+class Menu(models.Model):
+    name = models.CharField(max_length=255)
+    picture = models.CharField(max_length=255)
+    price = models.FloatField()
+    description = models.TextField()
+
+    order_list = models.ForeignKey(Order_list, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
