@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Type,Restaurant,Order,Order_list,feedback,Menu
 # Register your models here.
+
+
+
 admin.site.register(Type)
 admin.site.register(Restaurant)
 admin.site.register(Order)
