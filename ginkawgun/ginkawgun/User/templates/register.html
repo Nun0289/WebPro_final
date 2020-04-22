@@ -148,7 +148,7 @@
                         </div>
                         <div>
                             <button class="btn btn--radius-2 btn--green" type="submit" >submit</button>
-							<a href="{{ view.get_success_url }}" class="btn btn--radius-2 btn--red">Cancel</a>
+                            <a href="{% url 'login' %}" class="btn btn--radius-2 btn--red">Cancel</a>
                         </div>       
                     </form>
                 </div>
@@ -165,16 +165,6 @@
 
     <!-- Main JS-->
     <script src="{% static 'register/js/global.js'%}"></script>
-    <script>
-function validateForm() {
-  var x = document.forms["myForm"]["username"].value;
-  if (x == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-}
-</script>
-
 </body>
 
 </html>

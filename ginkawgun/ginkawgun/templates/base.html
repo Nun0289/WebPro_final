@@ -66,6 +66,7 @@
                 <!-- /.navbar-collapse -->
 
                 <!-- Start Atribute Navigation -->
+                {% if user.is_authenticated %}
                 <div class="attr-nav">
                     <ul>
                         <li class="side-menu"><a href="#">
@@ -74,6 +75,7 @@
 					</a></li>
                     </ul>
                 </div>
+                {% endif %}
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
