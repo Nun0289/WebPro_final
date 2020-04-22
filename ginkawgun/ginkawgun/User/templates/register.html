@@ -32,10 +32,10 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Event Registration Form</h2>
+                    <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" >
+                    <form method="POST" name="myForm">
                          {% csrf_token %}
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
@@ -58,16 +58,45 @@
                             <div class="name">Username</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="text" name="username" >
+                                    <input class="input--style-5" type="username" name="username">
                                 </div>
+                        {%if username == ''%}
+                        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>Please input Username
+				        </div>
+                        {% elif error == 'Username has already been taken' %}
+				        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+                        {% elif error == ' ' %}
+				        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+                        
+				        {% endif %}
                             </div>
                         </div>
+
 						<div class="form-row">
                             <div class="name">Password</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="password" name="password">
                                 </div>
+                        {% if error == 'The password must have at least 8 characters'%}
+				        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+                        {% elif error == 'Password Not Match!!!' %}
+                        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+				        {% endif %}
                             </div>
                         </div>
 						<div class="form-row">
@@ -84,6 +113,12 @@
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email">
                                 </div>
+                        {% if error == 'This email has already to use' %}
+				        <div class="alert" style='color: red;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+				        {% endif %}
                             </div>
                         </div>
                         <div class="form-row m-b-55">
@@ -112,7 +147,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn--radius-2 btn--green" type="submit">submit</button>
+                            <button class="btn btn--radius-2 btn--green" type="submit" >submit</button>
 							<a href="{{ view.get_success_url }}" class="btn btn--radius-2 btn--red">Cancel</a>
                         </div>       
                     </form>
@@ -130,6 +165,15 @@
 
     <!-- Main JS-->
     <script src="{% static 'register/js/global.js'%}"></script>
+    <script>
+function validateForm() {
+  var x = document.forms["myForm"]["username"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}
+</script>
 
 </body>
 

@@ -40,16 +40,25 @@ def app_register(request):
         password2 = request.POST.get('cpassword')
         print(password)
         print(password2)
-        if password == password2:
-            user = User.objects.create_user(username, email, password)
-            user.first_name = fname
-            user.last_name = lname
-            user.save()
-            print("OK")
-            return redirect('login')
+        if len(password) >= 8:
+            if password == password2:
+                if User.objects.filter(username=username).exists():
+                    context['error'] = 'Username has already been taken'
+                    print("Username has already been taken")
+                if User.objects.filter(email=email).exists():
+                    context['error'] = 'This email has already to use'
+                    print("This email has already to use")
+                else:
+                    user = User.objects.create_user(username, email, password)
+                    user.first_name = fname
+                    user.last_name = lname
+                    user.save()
+                    print("OK")
+                    return redirect('login')
+            else:
+                context['error'] = 'Password Not Match!!!'
+                print("Password Not Match!!!")
         else:
-            context['error'] = 'Password Not Match!!!'
-            return render(request, template_name='register.html', context=context)
-            print("NO")
-    
+            context['error'] = 'The password must have at least 8 characters'
+            print("The password must have at least 8 characters")
     return render(request, template_name='register.html', context=context)
