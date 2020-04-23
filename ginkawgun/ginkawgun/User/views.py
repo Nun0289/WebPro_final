@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+from contextlib import ContextDecorator
+from .forms import UserForm
 
 def app_login(request):
     context = {}
@@ -64,5 +66,13 @@ def app_register(request):
 
     return render(request, template_name='register.html', context=context)
 
-def app_useredit(request):
-    return render(request, template_name='edituser.html')
+def edituser_form(request):
+    if request.method == 'POST':
+        form1 = UserFrom(request.POST)
+
+        if form1.is_valid():
+            return redirect('login/')
+    else:
+        form1 = UserFrom()
+
+    return render(request,'edituser.html',{'form':form1})
