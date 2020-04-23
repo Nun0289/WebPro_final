@@ -28,7 +28,6 @@ class Menu(models.Model):
     price = models.FloatField()
     description = models.TextField()
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
-
     def __str__(self):
         return '(%s) %s %d %s' % (self.restaurant.name, self.name, self.price, self.description)
 
@@ -36,7 +35,6 @@ class Order(models.Model):
     total_price = models.FloatField()
     payment = models.CharField(max_length=255)
     datetime = models.DateTimeField(auto_now_add=True)
-
     def __str__(self):
         return '%s %s' % (self.total_price, self.payment)
 

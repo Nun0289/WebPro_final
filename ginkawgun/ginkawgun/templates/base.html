@@ -19,6 +19,7 @@
     <link rel="apple-touch-icon" href="{% static 'base/images/icon_new.png'%}">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css'%}">
     <!-- Site CSS -->
     <link rel="stylesheet" href="{% static 'base/css/styles.css'%}">
@@ -35,7 +36,27 @@
 </head>
 
 <body>
+    <!-- Sidebar (hidden by default) -->
+    <form method='get' action="{% url 'edituser'%}">
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:1000;width:30%;min-width:300px;background-color: #FFC107;" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="width: 15%;text-align: center;float: right;background-color: red;">X</a>
+    <div class="w3-container" style='background-color: #303030;height: 80%;'>
+        <div>
+            <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQRWDqIz4x-sCmBexkQHm4_NhxZuw-HCFXWnKNsxCMpu66z_a5V&usqp=CAU" style="width:30%;border-radius: 10px;border : solid green;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
+            <div class='box' style='display: block;'>
+            <div class='showtext' style='display: block;background-color: #eee;margin-left: 5%;margin-right: 5%;'><b>Username: </b>{{user.get_username}}</div>
+            <div class='showtext' style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>Email: </b>{{user.email}}</div>
+            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>Phone: </b></div>
+            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>FullName: </b>{{user.get_full_name}}</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" style='margin-top: 10%;margin-left: 10%;'>Edit User</button>
 
+    </div>
+    </nav>
+    </form>
+
+    
     <!-- Start Main Top -->
     <header class="main-header">
         <!-- Start Navigation -->
@@ -49,13 +70,13 @@
                     <a class="navbar-brand" href="#"><img src="{% static 'base/images/logo_new.png'%}" style="width:200px; height:100px;" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
-
+                
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="{% url 'homepage' %}">Home</a></li>
                         {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="url">My Account</a></li>
+                            <li class="nav-item"><a class="nav-link" onclick="w3_open()">My Account</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
@@ -242,6 +263,18 @@
     <script src="{% static 'base/js/form-validator.min.js'%}"></script>
     <script src="{% static 'base/js/contact-form-script.js'%}"></script>
     <script src="{% static 'base/js/custom.js'%}"></script>
+
+    <script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
 </body>
 
 </html>

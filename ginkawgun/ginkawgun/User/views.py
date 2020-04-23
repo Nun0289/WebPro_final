@@ -53,9 +53,6 @@ def app_register(request):
                     user.first_name = fname
                     user.last_name = lname
                     user.save()
-                    # if 
-                    #     my_group = Group.objects.get(name='my_group_name') 
-                    #     my_group.user_set.add(your_user)
                     print("OK")
                     return redirect('login')
             else:
@@ -66,3 +63,6 @@ def app_register(request):
             print("The password must have at least 8 characters")
 
     return render(request, template_name='register.html', context=context)
+
+def app_useredit(request):
+    return render(request, template_name='edituser.html')
