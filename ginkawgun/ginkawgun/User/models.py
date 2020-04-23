@@ -5,10 +5,18 @@ from django.contrib.auth.models import User
 
 class Vendor(models.Model):
     address = models.TextField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=True)
+
+    def __str__(self):
+        return '%s' % (self.user.username)
 
 class Customer(models.Model):
     fname = models.CharField(max_length=255)
     lname = models.CharField(max_length=255)
-    phone = models.CharField(max_length=10)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    nphone = models.CharField(max_length=10, null=True)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=True)
+
+    def __str__(self):
+        return '(%s) %s %s %d' % (self.user.username, self.fname, self.lname, self.phone)

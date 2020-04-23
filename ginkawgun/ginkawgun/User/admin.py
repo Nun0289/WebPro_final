@@ -5,8 +5,10 @@ from django.contrib.auth.models import Permission
 from .models import Customer, Vendor
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['','','','']
+    list_display = ['fname','lname','user','nphone']
+class VendorAdmin(admin.ModelAdmin):
+    list_display = ['address','user']
 
 admin.site.register(Permission)
-admin.site.register(Customer)
-admin.site.register(Vendor)
+admin.site.register(Customer,CustomerAdmin)
+admin.site.register(Vendor,VendorAdmin)

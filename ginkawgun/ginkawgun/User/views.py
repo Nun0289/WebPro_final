@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Group
 
 def app_login(request):
     context = {}
@@ -53,6 +53,9 @@ def app_register(request):
                     user.first_name = fname
                     user.last_name = lname
                     user.save()
+                    # if 
+                    #     my_group = Group.objects.get(name='my_group_name') 
+                    #     my_group.user_set.add(your_user)
                     print("OK")
                     return redirect('login')
             else:
@@ -61,4 +64,5 @@ def app_register(request):
         else:
             context['error'] = 'The password must have at least 8 characters'
             print("The password must have at least 8 characters")
+
     return render(request, template_name='register.html', context=context)
