@@ -68,11 +68,11 @@ def app_register(request):
 
 def edituser_form(request):
     if request.method == 'POST':
-        form1 = UserFrom(request.POST)
+        form1 = UserForm(request.POST)
 
         if form1.is_valid():
             return redirect('login/')
     else:
-        form1 = UserFrom()
+        form1 = UserForm()
 
     return render(request,'edituser.html',{'form':form1})

@@ -1,6 +1,6 @@
 from django import forms
 
-class UserForm(forms.forms):
+class UserForm(forms.Form):
     fname  = forms.CharField(max_length=50)
     lname = forms.CharField(max_length=50)
     username = forms.CharField(max_length=50,required=True)
