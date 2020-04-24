@@ -71,7 +71,7 @@ def edituser_form(request):
         form1 = UserForm(request.POST)
 
         if form1.is_valid():
-            return redirect('login/')
+            return redirect('/login/')
     else:
         form1 = UserForm()
 
