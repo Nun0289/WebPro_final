@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from contextlib import ContextDecorator
-from .forms import UserForm
+from .forms import UserForm,ChangpassForm
 
 def app_login(request):
     context = {}
@@ -76,3 +76,14 @@ def edituser_form(request):
         form1 = UserForm()
 
     return render(request,'edituser.html',{'form':form1})
+
+def app_changepass(request):
+    if request.method == 'POST':
+        form = ChangpassForm(request.POST)
+
+        if form.is_valid():
+            return redirect('/login/')
+    else:
+        form = ChangpassForm()
+
+    return render(request,'changepass.html',{'form':form})
