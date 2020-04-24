@@ -3,7 +3,13 @@
 <head>
 </head>
 <body>
-    <form action='' method=''>
-        {{form}}
+<form action="{% url 'edituser_form' %}" method='post'>
+{% csrf_token %}        
+        <table>
+            {{form}}
+        </table>
+    <input type="submit" value="Submit">
+</form>
+
 </body>
 </html>

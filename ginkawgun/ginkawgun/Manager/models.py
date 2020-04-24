@@ -35,6 +35,7 @@ class Order(models.Model):
     total_price = models.FloatField()
     payment = models.CharField(max_length=255)
     datetime = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return '%s %s' % (self.total_price, self.payment)
 
