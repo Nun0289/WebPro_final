@@ -16,6 +16,7 @@ class Customer(models.Model):
     lname = models.CharField(max_length=255)
     nphone = models.CharField(max_length=10, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=True)
+    user_picture = models.ImageField(upload_to='user_image', blank=True,null=True)
 
     def __str__(self):
         return '(%s) %s %s %s' % (self.user.username, self.fname, self.lname, self.nphone)
