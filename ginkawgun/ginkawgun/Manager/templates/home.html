@@ -22,12 +22,12 @@
                                 <div class="toolbar-sorter-right">
                                     <span>Sort by </span>
                                     <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-         <option data-display="Select">Nothing</option>
-         <option value="1">Popularity</option>
-         <option value="2">High Price → High Price</option>
-         <option value="3">Low Price → High Price</option>
-         <option value="4">Best Selling</option>
-        </select>
+                                    <option data-display="Select">Nothing</option>
+                                    <option value="1">Popularity</option>
+                                    <option value="2">High Price → High Price</option>
+                                    <option value="3">Low Price → High Price</option>
+                                    <option value="4">Best Selling</option>
+                                    </select>
                                 </div>
                                 <p>Showing all 4 results</p>
                             </div>
@@ -48,15 +48,34 @@
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
                                         {% for menu in menu_all %}
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
+                                            {% comment %} <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix"style='background-color: #f5f5f5;'> 
                                                     <div class="box-img-hover">
+                                                        <img src='{{ menu.picture.url }}' class="img-fluid" style='width: 250px;height: 250px;'>
                                                         <h1>{{ menu.name }}</h1>
-                                                        <img src='{{ menu.picture.url }}' class="img-fluid">
                                                         <h2>{{ menu.price }}</h2>
                                                         <h2>{{ menu.description }}</h2>
                                                     </div>
                                                     <a href='' class='btn btn-primary'>สั่งอาหาร</a>
+                                                </div>
+                                            </div> {% endcomment %}
+                                            <div class="col-lg-4 col-md-6 special-grid best-seller">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="{{ menu.picture.url }}" class="img-fluid" alt="Image" style='width: 500px;height: 250px;'>
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            </ul>
+                                                            <a class="cart" href="#">Add to Cart</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="why-text">
+                                                        <h4>{{ menu.name }}</h4>
+                                                        <h5>{{ menu.price }}</h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         {% endfor %}
