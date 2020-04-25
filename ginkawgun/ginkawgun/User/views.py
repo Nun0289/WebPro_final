@@ -8,6 +8,7 @@ from venv import create
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group, User
+from django.contrib.messages.storage import session
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
@@ -21,11 +22,14 @@ def app_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         user = authenticate(request, username=username, password=password)
-
+        customer = Customer.objects.get(user=user)
+        print(customer.nphone)
+        print(user)
+        request.session['phone'] = customer.nphone
         if user:
             login(request,user)
+            # request.session['phone'] = 
             return redirect('homepage')
         else:
             context['username'] = username
@@ -56,7 +60,7 @@ def edituser_form(request):
             if Customer.objects.filter(user=request.user.id).exists():
                 Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone)
                 User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
-                return redirect('/login/')
+                return redirect('homepage')
     else:
         form1 = UserForm()
 
