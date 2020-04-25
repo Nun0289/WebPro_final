@@ -5,12 +5,10 @@ class UserForm(forms.Form):
     lname = forms.CharField(max_length=50)
     email = forms.EmailField()
     nphone = forms.CharField(max_length=10,min_length=10,required=True)
-    user_picture = forms.ImageField()
     fname.widget.attrs.update({'class':'input--style-5','type':"text",'name':"fname",'style':'width:100%;','placeholder':"First Name"})
     lname.widget.attrs.update({'class':'input--style-5','type':"text",'name':"lname",'style':'width:100%;','placeholder':"Lastname Name"})
     email.widget.attrs.update({'class': 'input--style-5','type':"email",'name':"email"})
     nphone.widget.attrs.update({'class': 'input--style-5','type':"text",'name':"nphone",'pattern':"[0-9]{1,}","title":"กรอกเบอร์มือถือให้ถูกต้อง","placeholder":"Please enter your PhoneNumber 0-9"})
-    user_picture.widget.attrs.update({'class': 'input--style-5','type':"file",'name':"user_picture"})
 
 class ChangpassForm(forms.Form):
     email = forms.EmailField(required=True)

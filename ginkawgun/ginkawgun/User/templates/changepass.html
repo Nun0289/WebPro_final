@@ -35,7 +35,7 @@
                     <h2 class="title">ChangePassword</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{% url 'register' %}">
+                    <form method="POST" action="{% url 'cpass' %}">
                          {% csrf_token %}
                         {% if error == 'Invalid Email' %}
                         <div class="alert" style='color: red; text-align: center;'>

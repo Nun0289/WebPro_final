@@ -23,13 +23,10 @@ def app_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        customer = Customer.objects.get(user=user)
-        print(customer.nphone)
-        print(user)
-        request.session['phone'] = customer.nphone
         if user:
             login(request,user)
-            # request.session['phone'] = 
+            customer = Customer.objects.get(user=user)
+            request.session['phone'] = customer.nphone
             return redirect('homepage')
         else:
             context['username'] = username
@@ -51,17 +48,23 @@ def app_logout(request):
 
 def edituser_form(request):
     if request.method == 'POST':
-        form1 = UserForm(request.POST)
+        form1 = UserForm(request.POST,request.FILES)
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
         email = request.POST.get('email')
+        user_picture = request.FILES.get('user_picture')
+        print(user_picture)
         nphone = request.POST.get('nphone')
         if form1.is_valid():
             if Customer.objects.filter(user=request.user.id).exists():
-                Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone)
+                Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone,user_picture=user_picture)
+                print("OK")
                 User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
                 return redirect('homepage')
+        else:
+            print("not Valid")
     else:
+        print("NO")
         form1 = UserForm()
 
     return render(request,'edituser.html',{'form':form1})

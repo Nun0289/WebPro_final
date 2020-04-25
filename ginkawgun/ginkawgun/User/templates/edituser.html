@@ -16,8 +16,7 @@
     <!-- Icons font CSS-->
     <link href="{% static 'register/vendor/mdi-font/css/material-design-iconic-font.min.css'%}" rel="stylesheet" media="all">
     <link href="{% static 'register/vendor/font-awesome-4.7/css/font-awesome.min.css'%}" rel="stylesheet" media="all">
-    <!-- Font special for pages-->
-    <link href="{% static 'register/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i'%}" rel="stylesheet">
+   
 
     <!-- Vendor CSS-->
     <link href="{% static 'register/vendor/select2/select2.min.css'%}" rel="stylesheet" media="all">
@@ -31,26 +30,25 @@
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
-            <form method="POST" action="{% url 'edituser_form' %}">
-                {% csrf_token %}
-                <div class="card-heading">
-                    <h2 class="title" name='thisuser' value='{{user.get_username}}'>EditUser : {{user.get_username}}</h2>
-                </div>
-                <div class="card-body">     
-                    <div class="form-row m-b-55">
-                        <div class="name">Name</div>
+                <form method="POST" action="{% url 'edituser_form' %}">
+                    {% csrf_token %}
+                    <div class="card-heading">
+                        <h2 class="title" name='thisuser' value='{{user.get_username}}'>EditUser : {{user.get_username}}</h2>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="form-row m-b-55">
+                            <div class="name">Name</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                           {{form.fname}}
-                                           {{form.fname.error}}
+                                            {{form.fname}} {{form.fname.error}}
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            {{form.lname}}
-                                            {{form.lname.error}}
+                                            {{form.lname}} {{form.lname.error}}
                                         </div>
                                     </div>
                                 </div>
@@ -58,13 +56,12 @@
                         </div>
 
                         <div class="form-row">
-                        <div class="name">Email</div>
-                                <div class="value">
-                                    <div class="input-group">
-                                        {{form.email}}
-                                        {{form.email.error}}
-                                    </div>
+                            <div class="name">Email</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    {{form.email}} {{form.email.error}}
                                 </div>
+                            </div>
                         </div>
 
                         <div class="form-row m-b-55">
@@ -73,8 +70,20 @@
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            {{form.nphone}}
-                                            {{form.nphone.error}}
+                                            {{form.nphone}} {{form.nphone.error}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row m-b-55">
+                            <div class="name">IMAGE</div>
+                            <div class="value">
+                                <div class="row row-refine">
+                                    <div class="col-9">
+                                        <div class="input-group-desc">
+                                            <input type="file" name="user_image">
                                         </div>
                                     </div>
                                 </div>
@@ -82,10 +91,11 @@
                         </div>
 
                         <div>
-                            <button class="btn btn--radius-2 btn--green" type="submit" >submit</button>
+                            <button class="btn btn--radius-2 btn--green" type="submit">submit</button>
                             <a href="{% url 'login' %}" class="btn btn--radius-2 btn--red">Cancel</a>
-                        </div>       
-                    </form>
+                        </div>
+                    </div>
+                </form>
 
                 </div>
             </div>
