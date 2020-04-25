@@ -35,7 +35,7 @@
                     <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" action="{% url 'register' %}">
                          {% csrf_token %}
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
@@ -43,12 +43,14 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="fname" style='width:100%;'  placeholder="First Name">
+                                            {{form.fname}}
+                                            {{form.fname.error}}
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="lname" placeholder="Last Name">
+                                            {{form.lname}}
+                                            {{form.lname.error}}
                                         </div>
                                     </div>
                                 </div>
@@ -58,24 +60,14 @@
                             <div class="name">Username</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="username" name="username">
+                                    {{form.username}}
+                                    {{form.username.error}}
                                 </div>
-                        {%if username == ''%}
-                        <div class="alert" style='color: red;'>
-  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  					        <strong>Error </strong>Please input Username
-				        </div>
-                        {% elif error == 'Username has already been taken' %}
+                        {% if error == 'Username has already been taken' %}
 				        <div class="alert" style='color: red;'>
   					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
   					        <strong>Error </strong>{{error}}
 				        </div>
-                        {% elif error == ' ' %}
-				        <div class="alert" style='color: red;'>
-  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  					        <strong>Error </strong>{{error}}
-				        </div>
-                        
 				        {% endif %}
                             </div>
                         </div>
@@ -84,14 +76,10 @@
                             <div class="name">Password</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="password" name="password">
+                                    {{form.password}}
+                                    {{form.password.error}}
                                 </div>
-                        {% if error == 'The password must have at least 8 characters'%}
-				        <div class="alert" style='color: red;'>
-  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  					        <strong>Error </strong>{{error}}
-				        </div>
-                        {% elif error == 'Password Not Match!!!' %}
+                        {% if error == 'Password Not Match!!!' %}
                         <div class="alert" style='color: red;'>
   					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
   					        <strong>Error </strong>{{error}}
@@ -103,7 +91,8 @@
                             <div class="name"></div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="password" name="cpassword"  placeholder="Please enter your password again">
+                                    {{form.secpassword}}
+                                    {{form.secpassword.error}}
                                 </div>
                             </div>
                         </div>
@@ -111,7 +100,8 @@
                             <div class="name">Email</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email">
+                                    {{form.email}}
+                                    {{form.email.error}}
                                 </div>
                         {% if error == 'This email has already to use' %}
 				        <div class="alert" style='color: red;'>
@@ -127,7 +117,8 @@
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone">
+                                            {{form.nphone}}
+                                            {{form.nphone.error}}
                                         </div>
                                     </div>
                                 </div>

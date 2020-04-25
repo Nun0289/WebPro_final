@@ -25,7 +25,7 @@ from User import views as user_views
 urlpatterns = [
     path('login/',user_views.app_login,name='login'),
     path('logout/',user_views.app_logout,name='logout'),
-    path('register/',user_views.app_register,name='register'),
+    path('register/',user_views.app_register_from,name='register'),
     path('admin/', admin.site.urls ,name='admin'),
     path('cpass/',user_views.app_changepass,name='cpass'),
     path('',manager_views.app_homepage, name='homepage'),

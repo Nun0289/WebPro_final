@@ -31,12 +31,12 @@
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
+            <form method="POST" action="{% url 'edituser_form' %}">
+                {% csrf_token %}
                 <div class="card-heading">
-                    <h2 class="title">EditUser : {{user.get_username}}</h2>
+                    <h2 class="title" name='thisuser' value='{{user.get_username}}'>EditUser : {{user.get_username}}</h2>
                 </div>
-                <div class="card-body">
-                    <form method="POST" action="{% url 'edituser_form' %}">
-                         {% csrf_token %}
+                <div class="card-body">     
                     <div class="form-row m-b-55">
 
                         <div class="name">Name</div>

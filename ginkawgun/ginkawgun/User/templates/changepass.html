@@ -35,10 +35,16 @@
                     <h2 class="title">ChangePassword</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{% url 'edituser_form' %}">
+                    <form method="POST" action="{% url 'register' %}">
                          {% csrf_token %}
+                        {% if error == 'Invalid Email' %}
+                        <div class="alert" style='color: red; text-align: center;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+                        {% endif %}
                     <div class="form-row m-b-55">
-                        <div class="form-row">
+                    <div class="form-row">
                         <div class="name">Email</div>
                                 <div class="value">
                                     <div class="input-group">
@@ -47,15 +53,20 @@
                                     </div>
                                 </div>
                         </div>
-
+                        {% if error == 'Invalid Username'%}
+                        <div class="alert" style='color: red; margin: auto;'>
+  					        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  					        <strong>Error </strong>{{error}}
+				        </div>
+                        {% endif %}
                         <div class="form-row m-b-55">
-                            <div class="name">OldPassword</div>
+                            <div class="name">Username</div>
                             <div class="value">
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            {{form.oldpassword}}
-                                            {{form.oldpassword.error}}
+                                            {{form.username}}
+                                            {{form.username.error}}
                                         </div>
                                     </div>
                                 </div>
