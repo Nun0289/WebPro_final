@@ -14,7 +14,7 @@ from django.shortcuts import redirect, render
 
 from User.models import Customer
 
-from .forms import ChangpassForm, RegisterForm, UserForm
+from .forms import ChangpassForm, RegisterForm, UserForm,ProfileUpdateForm
 
 
 def app_login(request):
@@ -73,18 +73,20 @@ def app_logout(request):
 #     return render(request,'edituser.html',{'form':form1})
 
 def edituser_form(request,user_id):
+    pupdate = ProfileUpdateForm(request.POST,request.FILES)
     if request.method == 'POST':
-        form1 = UserForm(request.POST,request.FILES)
-        nphone = request.POST.get('nphone')
-        if form1.is_valid():
-                return redirect('homepage')
-        else:
-            print("not Valid")
+        pupdate = ProfileUpdateForm(request.POST,request.FILES)
+        if pupdate.is_valid():
+            print(pupdate)
+            return redirect('homepage')
     else:
         print("NO")
-        form1 = UserForm()
-
-    return render(request,'edituser.html',{'form':form1})
+        pupdate = ProfileUpdateForm(request.POST,request.FILES)
+    
+    context = {
+        'pupdate':pupdate
+    }
+    return render(request,'edituser.html',context)
 
 
 

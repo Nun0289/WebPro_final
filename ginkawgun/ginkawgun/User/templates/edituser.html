@@ -30,7 +30,7 @@
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
-                <form method="POST" action="{% url 'edituser_form'%}" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'edituser_form' request.user.id %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-heading">
                         <h2 class="title" name='thisuser' value='{{user.get_username}}'>EditUser : {{user.get_username}}</h2>
@@ -43,12 +43,12 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            {{form.fname}} {{form.fname.error}}
+                                            {% comment %} {{form.fname}} {{form.fname.error}} {% endcomment %}
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            {{form.lname}} {{form.lname.error}}
+                                            {% comment %} {{form.lname}} {{form.lname.error}} {% endcomment %}
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                             <div class="name">Email</div>
                             <div class="value">
                                 <div class="input-group">
-                                    {{form.email}} {{form.email.error}}
+                                    {% comment %} {{form.email}} {{form.email.error}} {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            {{form.nphone}} {{form.nphone.error}}
+                                            {% comment %} {{form.nphone}} {{form.nphone.error}} {% endcomment %}
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                        {{form.picture}}
+                                        {{pupdate}}
                                         </div>
                                     </div>
                                 </div>

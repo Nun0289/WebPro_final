@@ -11,9 +11,7 @@ def app_homepage(request):
     search = request.GET.get('search', '')
     res_list = Restaurant.objects.all()
     user_all = Customer.objects.all()
-    customer = Customer.objects.get(user=request.user)
     menu_list = Menu.objects.all()
-    request.session['phone'] = customer.nphone
     if search != '':
         menu_list = Menu.objects.filter(name__icontains=search)
 
