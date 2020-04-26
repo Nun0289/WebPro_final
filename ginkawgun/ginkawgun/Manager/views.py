@@ -10,12 +10,16 @@ from django.contrib.auth.decorators import login_required
 def app_homepage(request):
     search = request.GET.get('search', '')
     res_list = Restaurant.objects.all()
+    user_all = Customer.objects.all()
+    customer = Customer.objects.get(user=request.user)
+    request.session['phone'] = customer.nphone
 
     if search != '':
         res_list = Menu.objects.filter(name__icontains=search)
 
     context = {
         'res_list': res_list,
+        'user_all': user_all,
     }
     return render(request, template_name='home.html', context=context)
 
