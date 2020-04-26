@@ -1,8 +1,12 @@
+from dataclasses import field, fields
+
 from django import forms
-from .models import Customer
 from django.forms import ModelForm
 
-class ProfileUpdateForm(ModelForm):
+from .models import Customer
+
+
+class Updatepicture(ModelForm):
     class Meta:
         model = Customer
         fields = ['picture']

@@ -8,4 +8,4 @@ from . import views
 
 urlpatterns = [
     path('edituser_form/<int:user_id>',views.edituser_form,name='edituser_form')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,7 +14,7 @@ from django.shortcuts import redirect, render
 
 from User.models import Customer
 
-from .forms import ChangpassForm, RegisterForm, UserForm,ProfileUpdateForm
+from .forms import ChangpassForm, RegisterForm, UserForm,Updatepicture
 
 
 def app_login(request):
@@ -45,48 +45,50 @@ def app_logout(request):
 
 
 
-# def edituser_form(request):
-#     if request.method == 'POST':
-#         form1 = UserForm(request.POST,request.FILES)
-#         fname = request.POST.get('fname')
-#         lname = request.POST.get('lname')
-#         email = request.POST.get('email')
-#         picture = request.FILES.get('picture')
-#         print(picture)
-#         nphone = request.POST.get('nphone')
-#         if form1.is_valid():
-#             if Customer.objects.filter(user=request.user.id).exists():
-#                 Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone,user_picture=picture)
-#                 print("OK")
-                
-#                 User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
-#                 customer = Customer.objects.get(user=request.user)
-#                 print(customer.user_picture)
-#                 # request.session['user_picture'] = customer.user_picture
-#                 return redirect('homepage')
-#         else:
-#             print("not Valid")
-#     else:
-#         print("NO")
-#         form1 = UserForm()
-
-#     return render(request,'edituser.html',{'form':form1})
-
 def edituser_form(request,user_id):
-    pupdate = ProfileUpdateForm(request.POST,request.FILES)
     if request.method == 'POST':
-        pupdate = ProfileUpdateForm(request.POST,request.FILES)
-        if pupdate.is_valid():
-            print(pupdate)
-            return redirect('homepage')
+        form1 = UserForm(request.POST,request.FILES)
+        form2 = Updatepicture(request.POST,request.FILES)
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        email = request.POST.get('email')
+        picture = request.FILES.get('picture')
+        print(picture)
+        nphone = request.POST.get('nphone')
+        if form1.is_valid():
+            if Customer.objects.filter(user=request.user.id).exists():
+                Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone,picture=picture)
+                print("OK")
+                
+                User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
+                customer = Customer.objects.get(user=request.user)
+                print(customer.picture)
+                # request.session['user_picture'] = customer.user_picture
+                return redirect('homepage')
+        else:
+            print("not Valid")
     else:
         print("NO")
-        pupdate = ProfileUpdateForm(request.POST,request.FILES)
+        form1 = UserForm()
+        form2 = Updatepicture(request.POST,request.FILES)
+
+    return render(request,'edituser.html',{'form1':form1,'form2':form2})
+
+# def edituser_form(request,user_id):
+#     pupdate = ProfileUpdateForm(request.POST,request.FILES)
+#     if request.method == 'POST':
+#         pupdate = ProfileUpdateForm(request.POST,request.FILES)
+#         if pupdate.is_valid():
+#             print(pupdate)
+#             return redirect('homepage')
+#     else:
+#         print("NO")
+#         pupdate = ProfileUpdateForm(request.POST,request.FILES)
     
-    context = {
-        'pupdate':pupdate
-    }
-    return render(request,'edituser.html',context)
+#     context = {
+#         'pupdate':pupdate
+#     }
+#     return render(request,'edituser.html',context)
 
 
 
