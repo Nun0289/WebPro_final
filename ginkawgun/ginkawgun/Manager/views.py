@@ -1,10 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.storage import session
 from django.http import HttpResponse
 from django.shortcuts import render
 
 from Manager.models import *
 from User.models import *
-from django.contrib.auth.decorators import login_required
 
 
 def app_homepage(request):

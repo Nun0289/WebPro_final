@@ -49,6 +49,18 @@ class Order(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
 
+    success = 'เสร็จแล้ว'
+    inprogress = 'กำลังทำ'
+    status_type = (
+        (success, 'success'),
+        (inprogress, 'inprogress'),
+    )
+    status = models.CharField(
+        max_length=15,
+        choices=status_type,
+        default=inprogress
+    )
+
     def __str__(self):
         return '%s %s' % (self.total_price, self.payment)
 
