@@ -12,14 +12,15 @@ def app_homepage(request):
     res_list = Restaurant.objects.all()
     user_all = Customer.objects.all()
     customer = Customer.objects.get(user=request.user)
+    menu_list = Menu.objects.all()
     request.session['phone'] = customer.nphone
-
     if search != '':
-        res_list = Menu.objects.filter(name__icontains=search)
+        menu_list = Menu.objects.filter(name__icontains=search)
 
     context = {
         'res_list': res_list,
         'user_all': user_all,
+        'menu_list': menu_list
     }
     return render(request, template_name='home.html', context=context)
 
