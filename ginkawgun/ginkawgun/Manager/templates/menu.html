@@ -19,27 +19,7 @@
                     <div class="right-product-box">
                         <div class="product-item-filter row">
                             <div class="col-12 col-sm-8 text-center text-sm-left">
-                                <div class="toolbar-sorter-right">
-                                    <span>Sort by </span>
-                                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                    <option data-display="Select">Nothing</option>
-                                    <option value="1">Popularity</option>
-                                    <option value="2">High Price → High Price</option>
-                                    <option value="3">Low Price → High Price</option>
-                                    <option value="4">Best Selling</option>
-                                    </select>
-                                </div>
-                                <p>Showing all {{menu}} results</p>
-                            </div>
-                            <div class="col-12 col-sm-4 text-center text-sm-right">
-                                <ul class="nav nav-tabs ml-auto">
-                                    <li>
-                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fa fa-list-ul"></i> </a>
-                                    </li>
-                                </ul>
+                            {% comment %} <a href='{% url "order" %}' class='btn btn-primary'>ดูรายการ Order ทั้งหมด</a> <!-- ใส่เช็คว่าเป็นเฉพาะเจ้าของร้าน --> {% endcomment %}
                             </div>
                         </div>
 
@@ -47,18 +27,18 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
-                                        {% for res in res_list %}
+                                        {% comment %} ใส่ code ใหม่ตรงนี้ {% endcomment %}
+                                        {% for menu in menu_list %}
                                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
-                                                        <h1>{{ res.name }}</h1>
-                                                        <img src='{{ res.picture.url }}' class="img-fluid">
-                                                        <h2>{{ res.address }}</h2>
-                                                        <h2>{{ res.phone }}</h2>
+                                                        <h1>{{ menu.name }}</h1>
+                                                        <img src='{{ menu.picture.url }}' class="img-fluid">
+                                                        <h2>{{ menu.price }}</h2>
+                                                        <h2>{{ menu.description }}</h2>
                                                     </div>
-                                                    <a href='{% url "menu" res_id=res.id %}' class='btn btn-primary'>ดูรายการอาหาร</a>
+                                                    <a href='' class='btn btn-primary'>สั่งอาหาร</a>
                                                 </div>
-                                                <a href='{% url "order" res_id=res.id%}' class='btn btn-primary'>ดูรายการ Order ทั้งหมด</a>
                                             </div>
                                         {% endfor %}
                                     </div>
@@ -67,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-    <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+				<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                     <div class="product-categori">
                         <div class="search-product">
                             <form method="GET" action="{% url 'homepage' %}">
@@ -122,14 +102,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
 {% endblock %}

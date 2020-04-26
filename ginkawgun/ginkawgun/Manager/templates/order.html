@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container'>
+    {% for all in order %}
+        <h1>{{ all.restaurant.name }}</h1>
+        <h1>Order จาก : {{ all.customer.fname }}</h1>
+        <p>ราคา : {{ all.total_price }}</p>
+        <p>การจ่ายเงิน : {{ all.payment }}</p>
+        <p>ชื่ออาหาร : {{ all.menu.name }}</p>
+        <p>รายละเอียดการสั่ง : {{ all.description }}</p>
+
+
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -18,7 +18,6 @@ from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
 from Manager import views as manager_views
 from User import views as user_views
 

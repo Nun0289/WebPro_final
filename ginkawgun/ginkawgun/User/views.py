@@ -4,7 +4,7 @@ from fnmatch import filter
 from lib2to3.fixes.fix_input import context
 from os.path import exists
 from venv import create
-
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group, User
@@ -26,7 +26,6 @@ def app_login(request):
         if user:
             login(request,user)
             customer = Customer.objects.get(user=user)
-            request.session['phone'] = customer.nphone
             return redirect('homepage')
         else:
             context['username'] = username
@@ -46,20 +45,38 @@ def app_logout(request):
 
 
 
-def edituser_form(request):
+# def edituser_form(request):
+#     if request.method == 'POST':
+#         form1 = UserForm(request.POST,request.FILES)
+#         fname = request.POST.get('fname')
+#         lname = request.POST.get('lname')
+#         email = request.POST.get('email')
+#         picture = request.FILES.get('picture')
+#         print(picture)
+#         nphone = request.POST.get('nphone')
+#         if form1.is_valid():
+#             if Customer.objects.filter(user=request.user.id).exists():
+#                 Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone,user_picture=picture)
+#                 print("OK")
+                
+#                 User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
+#                 customer = Customer.objects.get(user=request.user)
+#                 print(customer.user_picture)
+#                 # request.session['user_picture'] = customer.user_picture
+#                 return redirect('homepage')
+#         else:
+#             print("not Valid")
+#     else:
+#         print("NO")
+#         form1 = UserForm()
+
+#     return render(request,'edituser.html',{'form':form1})
+
+def edituser_form(request,user_id):
     if request.method == 'POST':
         form1 = UserForm(request.POST,request.FILES)
-        fname = request.POST.get('fname')
-        lname = request.POST.get('lname')
-        email = request.POST.get('email')
-        user_picture = request.FILES.get('user_picture')
-        print(user_picture)
         nphone = request.POST.get('nphone')
         if form1.is_valid():
-            if Customer.objects.filter(user=request.user.id).exists():
-                Customer.objects.filter(user=request.user.id).update(fname=fname,lname=lname,nphone=nphone,user_picture=user_picture)
-                print("OK")
-                User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)
                 return redirect('homepage')
         else:
             print("not Valid")
@@ -68,7 +85,6 @@ def edituser_form(request):
         form1 = UserForm()
 
     return render(request,'edituser.html',{'form':form1})
-
 
 
 
@@ -138,7 +154,7 @@ def app_register_from(request):
                         user.save()
                         id = user.id
                         print(id)
-                        coustomer = Customer.objects.create(fname = fname,lname = lname, nphone = nphone,user_picture = "none",user_id=id)
+                        coustomer = Customer.objects.create(fname = fname,lname = lname, nphone = nphone,user_picture = "user_image/user111.png",user_id=id)
                         count= Customer.objects.all().count()
                         print(count)
                         return redirect('/login/')
