@@ -10,7 +10,7 @@ class Updatepicture(ModelForm):
     class Meta:
         model = Customer
         fields = ['picture']
-
+        
 class UserForm(forms.Form):
     fname  = forms.CharField(max_length=50)
     lname = forms.CharField(max_length=50)

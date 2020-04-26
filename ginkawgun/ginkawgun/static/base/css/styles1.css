@@ -33,7 +33,8 @@
     SKELETON
 -------------------------------------------------------------------*/
  body {
-     color: #666666;
+     color: #ffc107;
+     background-color: #343a40;
      font-size: 15px;
      font-family: 'Dosis', sans-serif;
      line-height: 1.80857;
@@ -55,8 +56,8 @@
      padding: 0 0 10px 0;
      font-weight: normal;
      line-height: 120% !important;
-     color: #1f1f1f;
-     margin: 0 
+     color: #ffc107;
+     margin: 0;
 }
  h1 {
      font-size: 24px 
@@ -1756,7 +1757,7 @@
      position: relative;
 }
  .search-product input[type="text"] {
-     background: #333333;
+     background: #b98d09;
      border: 0;
      box-shadow: none;
      border-radius: 0;
@@ -1777,7 +1778,7 @@
      opacity: 1;
 }
  .search-product button {
-     background: #000000;
+     background: #ffc107;
      color: #ffffff;
      font-size: 18px;
      position: absolute;
@@ -1797,7 +1798,7 @@
 }
  .title-left{
      font-size: 16px;
-     border-bottom: 3px solid #000000;
+     border-bottom: 3px solid #f8f9fa;
      margin-bottom: 20px;
 }
  .title-left h3{
@@ -1897,8 +1898,8 @@
      position: relative;
 }
  .product-item-filter{
-     border-bottom: 1px solid #000000;
-     border-top: 1px solid #000000;
+     border-bottom: 1px solid #eee;
+     border-top: 1px solid #f8f9fa;
      display: -webkit-box;
      display: -ms-flexbox;
      display: -webkit-flex;
@@ -1936,8 +1937,8 @@
      padding-left: 15px;
 }
  .toolbar-sorter-right .btn-light{
-     background: #000000;
-     color: #ffffff;
+     background: #f8f9fa;
+     color: #212529;
 }
  .toolbar-sorter-right .btn-light:hover{
      background: #ffc107;
@@ -1971,7 +1972,7 @@
  .product-item-filter li .nav-link {
      border: none;
      border-radius: 0px;
-     color: #111111;
+     color: #ffc107;
      font-size: 18px;
      padding: 4px 12px;
 }

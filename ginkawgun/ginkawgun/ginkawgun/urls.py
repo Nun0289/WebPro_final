@@ -29,6 +29,10 @@ urlpatterns = [
     path('cpass/',user_views.app_changepass,name='cpass'),
     path('',manager_views.app_homepage, name='homepage'),
     path('', include('User.urls')),
-    path('',include('Manager.urls'))
+    path('',include('Manager.urls')),
+    path('addfood/',manager_views.app_add_food, name='add_food'),
+    path('foodupdate/',manager_views.app_update_food, name='update_food'),
+    path('menuupdate/<int:menu_id>/',manager_views.menu_update, name='menu_update'),
+    path('menudelete/<int:menu_id>/',manager_views.menu_delete, name='menu_delete'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css'%}">
     <!-- Site CSS -->
-    <link rel="stylesheet" href="{% static 'base/css/styles.css'%}">
+    <link rel="stylesheet" href="{% static 'base/css/styles1.css'%}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{% static 'base/css/responsive.css'%}">
     <!-- Custom CSS -->
@@ -37,12 +37,12 @@
 
 <body>
     <!-- Sidebar (hidden by default) -->
-    <form method='get' action="{% url 'edituser_form' request.user.id %}">
+    <form method='get' action="{% url 'edituser_form' %}">
     <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:1000;width:30%;min-width:300px;background-color: #FFC107;" id="mySidebar">
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="width: 15%;text-align: center;float: right;background-color: red;">X</a>
     <div class="w3-container" style='background-color: #303030;height: 80%;'>
         <div>
-            <center><img src="" style="width:30%;border-radius: 10px;border : solid green;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
+            <center><img src="/media/{{request.session.img}}" style="width:150px;height:150px;border-radius: 10px;border : solid green;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
             <div class='box' style='display: block;'>
             <div class='showtext' style='display: block;background-color: #eee;margin-left: 5%;margin-right: 5%;'><b>Username: </b>{{user.get_username}}</div>
             <div class='showtext' style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>Email: </b>{{user.email}}</div>
@@ -60,14 +60,14 @@
     <!-- Start Main Top -->
     <header class="main-header">
         <!-- Start Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav" style='background-color: #ffc107!important;'>
             <div class="container">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="#"><img src="{% static 'base/images/logo_new.png'%}" style="width:200px; height:100px;" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="#"><img src="{% static 'base/images/logo_new1.png'%}" style="width:200px; height:100px;" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
                 
@@ -262,7 +262,7 @@
     <script src="{% static 'base/js/baguetteBox.min.js'%}"></script>
     <script src="{% static 'base/js/form-validator.min.js'%}"></script>
     <script src="{% static 'base/js/contact-form-script.js'%}"></script>
-    <script src="{% static 'base/js/custom.js'%}"></script>
+    <script src="{% static 'base/js/custom1.js'%}"></script>
 
     <script>
 // Script to open and close sidebar

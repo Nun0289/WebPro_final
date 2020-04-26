@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+
 <!-- Start All Title Box -->
     <div class="all-title-box">
         <div class="container">
@@ -14,48 +15,52 @@
     <!-- End All Title Box -->
 <div class="shop-detail-box-main">
         <div class="container">
+        <form method="POST" name="myForm" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-xl-5 col-lg-5 col-md-6">
-                    <div id="carousel-example-1" class="single-product-slider carousel" data-ride="carousel">
+                    <div id="carousel-example-1" class="single-product-slider carousel " data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active"> <img class="d-block w-100" src="{% static 'base/images/addimage.png'%}" alt="First slide"> </div>
+                            <div class="carousel-item active">
+                            <div class="image-upload">
+                                <label for="file-input"> 
+                                    <img class="d-block w-100" src="{% static 'base/images/addimage.png'%}" id='addfoodimage' name='addfoodimage'>
+                                    
+                                </label>
+                                    <input id="file-input" type="file" name="file-input" value="" required accept="image/*"/>
+                                </div>
+                                </div>
+                            
                         </div>
-                    
+                     
                     </div>
                 </div>
                 <div class="col-xl-7 col-lg-7 col-md-6">
                     <div class="single-product-details">
-                        <form class="needs-validation" novalidate>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName">ชื่อเมนู</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid first name is required. </div>
+                                    <input type="text" class="form-control" name='fname' id="fname" placeholder="ชื่่อเมนู" value="" required>
+                                    <div class="invalid-feedback"> ต้องกรอกชื่อเมนู </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="lastName">ราคา</label>
-                                    <input type="number" class="form-control" id="lastName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid last name is required. </div>
+                                    <input type="number" class="form-control" id="fprice" name='fprice' placeholder="กรุณาใส่ราคาอาหาร" value="" required>
+                                    <div class="invalid-feedback"> ต้องกรอกราคา </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="username">คำอธิบายเพิ่มเติม</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="username" placeholder="" required>
-                                    <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                                    <input type="text" class="form-control" name='fdescription' default='' id="fdescription" placeholder="คำอธิบายเพิ่มเติม">
+                                    
                                 </div>
                             </div>
                             
                             <hr class="mb-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="same-address">
-                                <label class="custom-control-label" for="same-address">Optional</label>
+                             
                             </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="save-info">
-                                <label class="custom-control-label" for="save-info">Optional</label>
-                            </div>
-                            <hr class="mb-4">
+                            
                             
                             
                             
@@ -63,13 +68,15 @@
 
 						<div class="price-box-bar">
 							<div class="cart-and-bay-btn">
-								<a class="btn hvr-hover" data-fancybox-close="" href="#">เพิ่มเมนูอาหาร</a>
 								
+								<button class="btn hvr-hover" type="submit" style="color:white;" >เพิ่มเมนูอาหาร</button></form>
 							</div>
 						</div>
 						</div>
                     </div>
                 </div>
             </div>
+            
         </div>
+        
 {% endblock %}

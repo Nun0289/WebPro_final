@@ -1,6 +1,8 @@
 from django.db import models
 from User.models import Vendor, Customer
-
+from django.utils.text import slugify
+from django.dispatch import receiver
+import os
 # Create your models here.
 
 class Restaurant(models.Model):
@@ -37,7 +39,37 @@ class Menu(models.Model):
 
     def __str__(self):
         return '(%s) %s %d %s' % (self.restaurant.name, self.name, self.price, self.description)
+#Tiger#
+@receiver(models.signals.post_delete, sender=Menu)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    if instance.picture:
+        if os.path.isfile(instance.picture.path):
+            os.remove(instance.picture.path)
 
+@receiver(models.signals.pre_save, sender=Menu)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `MediaFile` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = sender.objects.get(pk=instance.pk).picture
+    except sender.DoesNotExist:
+        return False
+
+    new_file = instance.picture
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+#Tiger#
 class Order(models.Model):
     total_price = models.FloatField()
     payment = models.CharField(max_length=255)
