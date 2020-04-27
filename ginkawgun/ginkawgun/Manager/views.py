@@ -150,5 +150,5 @@ def add_cart(request, menu_id):
     return redirect(to='homepage') 
 
 def update_cart(request):
-    print('suss')
+
     return redirect(to='homepage') 

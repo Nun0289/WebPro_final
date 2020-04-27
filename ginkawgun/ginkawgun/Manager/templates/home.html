@@ -57,8 +57,8 @@
                                                                 <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                 {% for res in res_list %}
                                                                 {% if menu.restaurant_id == res.id and res.vendor_id == user.id%}
-                                                                <li><a href="{% url 'menu_update' menu_id=menu.id%}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Update"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="{% url 'menu_delete' menu_id=menu.id%}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Delete"><i class="fas fa-trash-alt"></i></a></li>
+                                                                <li><a href="{% url 'menu_update' menu_id=menu.id %}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Update"><i class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="{% url 'menu_delete' menu_id=menu.id %}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Delete"><i class="fas fa-trash-alt"></i></a></li>
                                                                 {% endif %}
                                                                 {% endfor %}
                                                             </ul>

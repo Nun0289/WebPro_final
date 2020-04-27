@@ -9,5 +9,6 @@ urlpatterns = [
     path('addfood/',views.app_add_food, name='add_food'),
     path('menu/<int:res_id>/', views.menu_list, name='menu'),
     path('order/<int:res_id>/', views.order, name='order'),
+    path('updatecart/',views.update_cart, name='updatecart'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
