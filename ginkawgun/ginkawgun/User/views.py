@@ -137,7 +137,7 @@ def app_register_from(request):
                         user.save()
                         id = user.id
                         print(id)
-                        coustomer = Customer.objects.create(fname = fname,lname = lname, nphone = nphone,user_picture = "user_image/user111.png",user_id=id)
+                        coustomer = Customer.objects.create(fname = fname,lname = lname, nphone = nphone,picture = "user_image/user111.png",user_id=id)
                         count= Customer.objects.all().count()
                         print(count)
                         return redirect('/login/')

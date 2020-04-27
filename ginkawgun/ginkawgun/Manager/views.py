@@ -28,7 +28,7 @@ def app_homepage(request):
         customer = Customer.objects.get(user=request.user)
         request.session['phone'] = customer.nphone
         request.session['img'] = str(customer.picture)
-
+        print(user.has_perm('order_list.view_order_list'))
     search = request.GET.get('search', '')
     order_list = Order.objects.filter(customer_id=request.user.id)
     res_list = Restaurant.objects.all()
@@ -55,16 +55,16 @@ def menu_list(request, res_id):
 
     return render(request, template_name='menu.html', context=context)
 
-def order(request, res_id):
-    current_user = request.user
-    res = Restaurant.objects.get(pk=res_id)
-    order = Order.objects.filter(restaurant__id=res_id)
-    # if current_user == restaurant.vendor.user_id:
+# def order(request, res_id):
+#     current_user = request.user
+#     res = Restaurant.objects.get(pk=res_id)
+#     order = Order.objects.filter(restaurant__id=res_id)
+#     # if current_user == restaurant.vendor.user_id:
 
-    return render(request, template_name='order.html', context={
-        'order': order,
-        'res': res,
-    })
+#     return render(request, template_name='home.html', context={
+#         'order': order,
+#         'res': res,
+#     })
 
 def app_food_detail(request):
     return render(request, template_name='food_detail.html')
@@ -152,3 +152,26 @@ def add_cart(request, menu_id):
 def update_cart(request):
 
     return redirect(to='homepage') 
+
+
+
+def delete_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order.delete()
+    return redirect(to='homepage')
+
+def plus_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order = Order.objects.update(
+        unit = order.unit + 1,
+        total_price = order.menu.price + order.menu.price
+    )
+    return redirect(to='homepage')
+
+def minus_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order = Order.objects.update(
+        unit = order.unit - 1,
+        total_price = order.menu.price - order.menu.price
+    )
+    return redirect(to='homepage')

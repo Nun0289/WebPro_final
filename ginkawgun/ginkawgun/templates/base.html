@@ -42,16 +42,15 @@
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="width: 15%;text-align: center;float: right;background-color: red;">X</a>
     <div class="w3-container" style='background-color: #303030;height: 80%;'>
         <div>
-            <center><img src="/media/{{request.session.img}}" style="width:150px;height:150px;border-radius: 10px;border : solid green;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
+            <center><img src="/media/{{request.session.img}}" style="width:150px;height:150px;border-radius: 10px;border : solid #007bff;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
             <div class='box' style='display: block;'>
             <div class='showtext' style='display: block;background-color: #eee;margin-left: 5%;margin-right: 5%; color: black;'><b>Username: </b>{{user.get_username}}</div>
             <div class='showtext' style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>Email: </b>{{user.email}}</div>
             <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>Phone: </b>{{request.session.phone}}</div>
-            {% comment %} {% for coustomer in  user_all%} {% if coustomer.user.username == user.get_username %}{{coustomer.nphone}}{% endif %} {% endfor %} {% endcomment %}
             <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>FullName: </b>{{user.get_full_name}}</div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success" style='margin-top: 10%;margin-left: 10%;'>Edit User</button>
+        <button type="submit" class="btn btn-success" style='margin-top: 10%;margin-left: 10%;background-color: #007bff;'>Edit User</button>
     </div>
     </nav>
     </form>
@@ -88,14 +87,25 @@
 
                 <!-- Start Atribute Navigation -->
                 {% if user.is_authenticated %}
-                <div class="attr-nav">
-                    <ul>
-                        <li class="side-menu"><a href="#">
-						<i class="fa fa-shopping-bag"></i>
-							<p>My Cart</p>
-					</a></li>
-                    </ul>
-                </div>
+                    {% if perms.order_list.view_Order %}
+                    <div class="attr-nav">
+                        <ul>
+                            <li class="side-menu"><a href="#">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                                <p>My Order</p>
+                        </a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="attr-nav">
+                        <ul>
+                            <li class="side-menu"><a href="#">
+                            <i class="fa fa-shopping-bag"></i>
+                                <p>My Cart</p>
+                        </a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
                 {% endif %}
                 <!-- End Atribute Navigation -->
             </div>
@@ -105,16 +115,30 @@
                 <li class="cart-box">
                     <ul class="cart-list">
                     {% for order in order_list %}
-                        <li>
-                            <a href="#" class="photo"><img src="{% static 'images/img-pro-01.jpg'%}" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id ='order.id' style="width: 80px;margin-top: 20px;">Edit</button>
-                        </li>
+                        {% if perms.order_list.view_order_list %}
+                            <li>
+                                <a href="#" class="photo"><img src="{{ order.menu.picture.url }}" class="cart-thumb" alt="" /></a>
+                                <h1>Order โดย : {{ order.customer.fname }}</h1>
+                                <p>ราคา : {{ order.total_price }}</p>
+                                <p>การจ่ายเงิน : {{ order.payment }}</p>
+                                <p>ชื่ออาหาร : {{ order.menu.name }}</p>
+                                <p>สถานะ : {{ order.status }}</p>
+                                <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-primary" style="width: 80px;margin-top: 20px;">Delete</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="#" class="photo"><img src="{{ order.menu.picture.url }}" class="cart-thumb" alt="" /></a>
+                                <h6>{{ order.menu.name }}</h6>
+                                <p>{{ order.unit }}x - <span class="price">${{ order.menu.price }}</span></p>
+                                <a href='{% url "plus_order" order_id=order.id %}' class="btn btn-primary" style="width: 40px;margin-top: 20px;">+</a>
+                                <a href='{% url "minus_order" order_id=order.id %}' class="btn btn-primary" style="width: 40px;margin-top: 20px;">-</a>
+                                <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-primary" style="margin-top: 20px;">Delete</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                         <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                            <a href="#" class="btn btn-default hvr-hover btn-cart">CHECK OUT</a>
+                            <span class="float-right"><strong>Total</strong>: ${{ order.total_price }}</span>
                         </li>
                     </ul>
                 </li>
@@ -141,7 +165,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <li class="nav-item"><a class="btn btn-primary" href="{% url 'updatecart' %}">Submit</a></li>
+            <button type="button" herf="" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>
@@ -215,7 +239,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
-                            <h4>About Freshshop</h4>
+                            <h4>About Faculty of Information Technology (King Mongkut's Institute of Technology Ladkrabang)</h4>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> 
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> 							
                         </div>
@@ -256,10 +280,6 @@
     <!-- End Footer  -->
 
     <!-- Start copyright  -->
-    <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-            <a href="https://html.design/">html design</a></p>
-    </div>
     <!-- End copyright  -->
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
@@ -283,6 +303,13 @@
 
     <script>
 // Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
 </script>
 
 </body>

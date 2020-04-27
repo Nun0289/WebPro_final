@@ -35,5 +35,8 @@ urlpatterns = [
     path('menuupdate/<int:menu_id>/',manager_views.menu_update, name='menu_update'),
     path('menudelete/<int:menu_id>/',manager_views.menu_delete, name='menu_delete'),
     path('add_to_cart/<int:menu_id>/',manager_views.add_cart, name='addtocart'),
+    path('delete_order/<int:order_id>/', manager_views.delete_order, name='delete_order'),
+    path('plus_order/<int:order_id>/', manager_views.plus_order, name='plus_order'),
+    path('minus_order/<int:order_id>/', manager_views.minus_order, name='minus_order'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
