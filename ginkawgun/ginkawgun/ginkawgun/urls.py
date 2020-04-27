@@ -34,5 +34,6 @@ urlpatterns = [
     path('foodupdate/',manager_views.app_update_food, name='update_food'),
     path('menuupdate/<int:menu_id>/',manager_views.menu_update, name='menu_update'),
     path('menudelete/<int:menu_id>/',manager_views.menu_delete, name='menu_delete'),
+    path('add_to_cart/<int:menu_id>/',manager_views.add_cart, name='addtocart'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

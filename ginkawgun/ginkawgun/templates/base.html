@@ -44,11 +44,11 @@
         <div>
             <center><img src="/media/{{request.session.img}}" style="width:150px;height:150px;border-radius: 10px;border : solid green;border-width: 10px;background-color:rgb(207, 233, 156);" class="w3-round"><br><br></center>
             <div class='box' style='display: block;'>
-            <div class='showtext' style='display: block;background-color: #eee;margin-left: 5%;margin-right: 5%;'><b>Username: </b>{{user.get_username}}</div>
-            <div class='showtext' style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>Email: </b>{{user.email}}</div>
-            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>Phone: </b>{{request.session.phone}}</div>
+            <div class='showtext' style='display: block;background-color: #eee;margin-left: 5%;margin-right: 5%; color: black;'><b>Username: </b>{{user.get_username}}</div>
+            <div class='showtext' style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>Email: </b>{{user.email}}</div>
+            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>Phone: </b>{{request.session.phone}}</div>
             {% comment %} {% for coustomer in  user_all%} {% if coustomer.user.username == user.get_username %}{{coustomer.nphone}}{% endif %} {% endfor %} {% endcomment %}
-            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;'><b>FullName: </b>{{user.get_full_name}}</div>
+            <div class='showtext'style='display: block;background-color: #eee;margin-top: 10px;margin-left: 5%;margin-right: 5%;color: black;'><b>FullName: </b>{{user.get_full_name}}</div>
             </div>
         </div>
         <button type="submit" class="btn btn-success" style='margin-top: 10%;margin-left: 10%;'>Edit User</button>
@@ -104,21 +104,14 @@
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
+                    {% for order in order_list %}
                         <li>
                             <a href="#" class="photo"><img src="{% static 'images/img-pro-01.jpg'%}" class="cart-thumb" alt="" /></a>
                             <h6><a href="#">Delica omtantur </a></h6>
                             <p>1x - <span class="price">$80.00</span></p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width: 80px;margin-top: 20px;">Edit</button>
                         </li>
-                        <li>
-                            <a href="#" class="photo"><img src="{% static 'images/img-pro-02.jpg'%}" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="{% static 'images/img-pro-03.jpg'%}" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
+                    {% endfor %}
                         <li class="total">
                             <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
                             <span class="float-right"><strong>Total</strong>: $180.00</span>
@@ -131,6 +124,30 @@
         <!-- End Navigation -->
     </header>
     <!-- End Main Top -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" herf="{% url 'cart_update' %}" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
 
     <!-- Start Top Search -->
     <div class="top-search">

@@ -4,17 +4,19 @@ from fnmatch import filter
 from idlelib import debugger
 from itertools import count
 from optparse import Values
-from os.path import pardir
+from os.path import getatime, pardir
 from urllib import request
 from venv import create
-from django.db.models import F
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.storage import session
+from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template.context_processors import request
+from pkg_resources import require
 
 from Manager.models import *
 from User.models import *
@@ -28,6 +30,7 @@ def app_homepage(request):
         request.session['img'] = str(customer.picture)
 
     search = request.GET.get('search', '')
+    order_list = Order.objects.filter(customer_id=request.user.id)
     res_list = Restaurant.objects.all()
     user_all = Customer.objects.all()
     menu_list = Menu.objects.all()
@@ -38,6 +41,7 @@ def app_homepage(request):
         'res_list': res_list,
         'user_all': user_all,
         'menu_list': menu_list,
+        'order_list': order_list,
     }
     return render(request, template_name='home.html', context=context)
 
@@ -135,3 +139,16 @@ def menu_delete(request, menu_id):
     user = request.user
 
     return redirect(to='update_food')
+
+#NuN
+@login_required
+def add_cart(request, menu_id):
+    user=request.user
+    customer = Customer.objects.get(user=request.user)
+    menu = Menu.objects.get(pk=menu_id)
+    order = Order.objects.create(total_price=menu.price,payment='None',unit=1,unit_price=menu.price,customer_id=customer.user_id,menu_id=menu.id,restaurant_id=menu.restaurant_id,status='inprogress')
+    return redirect(to='homepage') 
+
+def update_cart(request):
+    print('suss')
+    return redirect(to='homepage') 

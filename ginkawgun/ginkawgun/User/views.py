@@ -57,7 +57,7 @@ def edituser_form(request):
         email = request.POST.get('email')
         nphone = request.POST.get('nphone')
 
-        if form1.is_valid():
+        if form1.is_valid() and form2.is_valid():
             customer.picture=request.FILES.get('picture')
             customer.save()
             User.objects.filter(username=request.user).update(first_name=fname,last_name=lname,email=email)

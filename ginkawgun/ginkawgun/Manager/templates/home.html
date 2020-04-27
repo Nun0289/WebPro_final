@@ -55,15 +55,24 @@
                                                         <div class="mask-icon">
                                                             <ul>
                                                                 <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                {% for res in res_list %}
+                                                                {% if menu.restaurant_id == res.id and res.vendor_id == user.id%}
+                                                                <li><a href="{% url 'menu_update' menu_id=menu.id%}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Update"><i class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="{% url 'menu_delete' menu_id=menu.id%}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Delete"><i class="fas fa-trash-alt"></i></a></li>
+                                                                {% endif %}
+                                                                {% endfor %}
                                                             </ul>
-                                                            <a class="cart" onclick="openForm()">Add to Cart</a>
+                                                            <a class="cart" href="{% url 'addtocart' menu_id=menu.id %}">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
                                                         <h4>{{ menu.name }}</h4>
-                                                        <h5>{{ menu.price }}</h5>
+                                                        {% for res in res_list %}
+                                                        {% if menu.restaurant_id == res.id %}
+                                                        <h4 style="color: black;">{{res.name}}<h4>
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                        <h5>{{ menu.price }} Baht</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,22 +100,6 @@
                                 <div class="list-group-collapse sub-men">
                                     <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">อาหารประเภทข้าว<small class="text-muted">(100)</small></a>
                                     <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                    {% comment %} 
-                                    {% for res in res_list %}
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <h1>{{ res.name }}</h1>
-                                                        <img src='{{ res.picture.url }}' class="img-fluid">
-                                                        <h2>{{ res.address }}</h2>
-                                                        <h2>{{ res.phone }}</h2>
-                                                    </div>
-                                                    <a href='{% url "menu" res_id=res.id %}' class='btn btn-primary'>ดูรายการอาหาร</a>
-                                                </div>
-                                                <a href='{% url "order" res_id=res.id%}' class='btn btn-primary'>ดูรายการ Order ทั้งหมด</a>
-                                            </div>
-                                        {% endfor %}
-                                         {% endcomment %}
                                         <div class="list-group">
                                             <a href='{% url "menu" res_id=24 %}' class="list-group-item list-group-item-action active">ป้าเล็กร้านสามไอที<small class="text-muted">(50)</small></a>
                                             <a href='{% url "menu" res_id=15 %}' class="list-group-item list-group-item-action">ร้านน้องพลอย<small class="text-muted">(10)</small></a>
@@ -147,12 +140,5 @@
     </div>
 
     <script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
 </script>
 {% endblock %}

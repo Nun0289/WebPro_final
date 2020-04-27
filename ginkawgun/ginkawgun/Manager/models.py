@@ -1,9 +1,18 @@
 from django.db import models
+from django.contrib import admin
 from User.models import Vendor, Customer
 from django.utils.text import slugify
 from django.dispatch import receiver
 import os
 # Create your models here.
+class MyModelAdmin(admin.ModelAdmin):
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if request.user.username[0].upper() != 'J':
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
+
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
