@@ -77,7 +77,7 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" onclick="w3_open()">My Account</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
-                            {% if perms.order_list.order_list %}
+                            {% if perms.Manager.add_menu %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'add_food' %}">Addfood</a></li>
                             {% endif %}
                         {% else %}
@@ -90,7 +90,7 @@
 
                 <!-- Start Atribute Navigation -->
             {% if user.is_authenticated %}
-                    {% if perms.order_list.order_list %}
+                    {% if perms.Manager.view_order %}
                         <div class="attr-nav">
                             <ul>
                                 <li class="side-menu"><a href="#">
@@ -117,7 +117,7 @@
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
-                    {% if perms.order_list.order_list %}
+                    {% if perms.Manager.view_order %}
                         {% for order in orderall %}
                             {% for res_list in res_list %}
                                 {% if res_list.id == order.restaurant_id %}
@@ -133,6 +133,7 @@
                                                 <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-danger" style="width: 80px;margin-top: 20px;">Delete</a>
                                                 <a href='{% url "success_order" order_id=order.id %}' class="btn btn-success" style="width: 80px;margin-top: 20px;">Success</a>
                                             </li>
+                                        if
                                         {% endif %}
                                     {% endif %}
                                 {% endif %}

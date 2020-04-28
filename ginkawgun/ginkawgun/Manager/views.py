@@ -23,9 +23,10 @@ from User.models import *
 
 
 def app_homepage(request):
+    user = request.user
     user_all = Customer.objects.all()
     menu_list = Menu.objects.all()
-
+    user.has_perm('sites.change_site')
     if request.user.is_authenticated:
         user=request.user
         #getfilter
