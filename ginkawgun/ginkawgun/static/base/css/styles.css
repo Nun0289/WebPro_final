@@ -34,7 +34,7 @@
 -------------------------------------------------------------------*/
  body {
      color: #ffc107;
-     background-color: #343a40;
+     background-color: #fff;
      font-size: 15px;
      font-family: 'Dosis', sans-serif;
      line-height: 1.80857;
@@ -1798,7 +1798,7 @@
 }
  .title-left{
      font-size: 16px;
-     border-bottom: 3px solid #f8f9fa;
+     border-bottom: 3px solid #010101;
      margin-bottom: 20px;
 }
  .title-left h3{
@@ -1898,8 +1898,8 @@
      position: relative;
 }
  .product-item-filter{
-     border-bottom: 1px solid #eee;
-     border-top: 1px solid #f8f9fa;
+     border-bottom: 1px solid #010101;
+     border-top: 1px solid #010101;
      display: -webkit-box;
      display: -ms-flexbox;
      display: -webkit-flex;
@@ -1937,7 +1937,7 @@
      padding-left: 15px;
 }
  .toolbar-sorter-right .btn-light{
-     background: #f8f9fa;
+     background: #e0e0e0;
      color: #212529;
 }
  .toolbar-sorter-right .btn-light:hover{

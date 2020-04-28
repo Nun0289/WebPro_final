@@ -23,26 +23,41 @@ from User.models import *
 
 
 def app_homepage(request):
-    if request.user.is_authenticated:
-        user=request.user
-        customer = Customer.objects.get(user=request.user)
-        request.session['phone'] = customer.nphone
-        request.session['img'] = str(customer.picture)
-        print(user.has_perm('order_list.view_order_list'))
-    search = request.GET.get('search', '')
-    order_list = Order.objects.filter(customer_id=request.user.id)
-    res_list = Restaurant.objects.all()
     user_all = Customer.objects.all()
     menu_list = Menu.objects.all()
-    if search != '':
-        menu_list = Menu.objects.filter(name__icontains=search)
 
-    context = {
+    if request.user.is_authenticated:
+        user=request.user
+        #getfilter
+        customer = Customer.objects.get(user=request.user)
+
+        print(user.id)
+        try:
+            # res_list = Restaurant.objects.get(vendor_id=user.id)
+            res_list = Restaurant.objects.all()
+        except:
+            res_list = Restaurant.objects.all()
+        orderlist = Order.objects.filter(customer_id=request.user.id)
+        orderall = Order.objects.all()
+        request.session['phone'] = customer.nphone
+        request.session['img'] = str(customer.picture)
+        context = {
         'res_list': res_list,
         'user_all': user_all,
         'menu_list': menu_list,
-        'order_list': order_list,
-    }
+        'orderlist': orderlist,
+        'orderall': orderall
+        }
+    else:
+        context = {
+        'user_all': user_all,
+        'menu_list': menu_list,
+        }
+
+    #search
+    search = request.GET.get('search', '')
+    if search != '':
+        menu_list = Menu.objects.filter(name__icontains=search)
     return render(request, template_name='home.html', context=context)
 
 def menu_list(request, res_id):
@@ -55,22 +70,10 @@ def menu_list(request, res_id):
 
     return render(request, template_name='menu.html', context=context)
 
-# def order(request, res_id):
-#     current_user = request.user
-#     res = Restaurant.objects.get(pk=res_id)
-#     order = Order.objects.filter(restaurant__id=res_id)
-#     # if current_user == restaurant.vendor.user_id:
 
-#     return render(request, template_name='home.html', context={
-#         'order': order,
-#         'res': res,
-#     })
 
-def app_food_detail(request):
-    return render(request, template_name='food_detail.html')
 
 #Tiger####
-
 @login_required
 def app_add_food(request):
     user = request.user
@@ -90,9 +93,6 @@ def app_add_food(request):
     context = {
         'newfood': newfood,
     }
-
-
-        
     return render(request, template_name='add_food.html', context=context)
 
 @login_required
@@ -137,10 +137,9 @@ def menu_delete(request, menu_id):
     menu = Menu.objects.get(pk=menu_id)
     menu.delete()
     user = request.user
-
     return redirect(to='update_food')
 
-#NuN
+#P
 @login_required
 def add_cart(request, menu_id):
     user=request.user
@@ -149,15 +148,16 @@ def add_cart(request, menu_id):
     order = Order.objects.create(total_price=menu.price,payment='None',unit=1,unit_price=menu.price,customer_id=customer.user_id,menu_id=menu.id,restaurant_id=menu.restaurant_id,status='inprogress')
     return redirect(to='homepage') 
 
-def update_cart(request):
-
-    return redirect(to='homepage') 
-
-
-
 def delete_order(request, order_id):
     order = Order.objects.get(pk=order_id)
     order.delete()
+    return redirect(to='homepage')
+
+def success_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order = Order.objects.update(
+        status = 'success'
+    )
     return redirect(to='homepage')
 
 def plus_order(request, order_id):
@@ -175,3 +175,29 @@ def minus_order(request, order_id):
         total_price = order.menu.price - order.menu.price
     )
     return redirect(to='homepage')
+
+@login_required
+def payment(request):
+    user = request.user
+    context = {
+
+    }
+
+    return render(request, template_name='payment.html', context=context)
+
+def Feedback(request, ven_id):
+    feed = feedback.objects.filter(vendor=ven_id)
+    current_user = request.user
+    feed_data = feedback.objects.filter(vendor__user__id=ven_id)
+    comment = request.GET.get('comment', '')
+    if comment != '':
+        new_feedback = feedback.objects.create(
+            description = comment,
+            vendor = ven_id,
+            customer = current_user,
+        )
+
+    return render(request, template_name='feedback.html', context={
+        'feed': feed,
+        'feed_data': feed_data,
+    })

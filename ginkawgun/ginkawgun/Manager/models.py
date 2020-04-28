@@ -92,10 +92,14 @@ class Order(models.Model):
 
     success = 'เสร็จแล้ว'
     inprogress = 'กำลังทำ'
+    cancel = 'ยกเลิก'
+
     status_type = (
         (success, 'success'),
         (inprogress, 'inprogress'),
+        (cancel, 'cancel'),
     )
+    
     status = models.CharField(
         max_length=15,
         choices=status_type,

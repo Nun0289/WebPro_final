@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css'%}">
     <!-- Site CSS -->
-    <link rel="stylesheet" href="{% static 'base/css/styles1.css'%}">
+    <link rel="stylesheet" href="{% static 'base/css/styles.css'%}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{% static 'base/css/responsive.css'%}">
     <!-- Custom CSS -->
@@ -61,7 +61,7 @@
         <!-- Start Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav" style='background-color: #ffc107!important;'>
             <div class="container">
-                <!-- Start Header Navigation -->
+               
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
@@ -77,6 +77,9 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" onclick="w3_open()">My Account</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                            {% if perms.order_list.order_list %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'add_food' %}">Addfood</a></li>
+                            {% endif %}
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
@@ -86,16 +89,16 @@
                 <!-- /.navbar-collapse -->
 
                 <!-- Start Atribute Navigation -->
-                {% if user.is_authenticated %}
-                    {% if perms.order_list.view_Order %}
-                    <div class="attr-nav">
-                        <ul>
-                            <li class="side-menu"><a href="#">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                                <p>My Order</p>
-                        </a></li>
-                        </ul>
-                    </div>
+            {% if user.is_authenticated %}
+                    {% if perms.order_list.order_list %}
+                        <div class="attr-nav">
+                            <ul>
+                                <li class="side-menu"><a href="#">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                    <p>My Order</p>
+                            </a></li>
+                            </ul>
+                        </div>
                     {% else %}
                     <div class="attr-nav">
                         <ul>
@@ -106,7 +109,7 @@
                         </ul>
                     </div>
                     {% endif %}
-                {% endif %}
+            {% endif %}
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
@@ -114,19 +117,30 @@
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
-                    {% for order in order_list %}
-                        {% if perms.order_list.view_order_list %}
-                            <li>
-                                <a href="#" class="photo"><img src="{{ order.menu.picture.url }}" class="cart-thumb" alt="" /></a>
-                                <h1>Order โดย : {{ order.customer.fname }}</h1>
-                                <p>ราคา : {{ order.total_price }}</p>
-                                <p>การจ่ายเงิน : {{ order.payment }}</p>
-                                <p>ชื่ออาหาร : {{ order.menu.name }}</p>
-                                <p>สถานะ : {{ order.status }}</p>
-                                <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-primary" style="width: 80px;margin-top: 20px;">Delete</a>
-                            </li>
-                        {% else %}
-                            <li>
+                    {% if perms.order_list.order_list %}
+                        {% for order in orderall %}
+                            {% for res_list in res_list %}
+                                {% if res_list.id == order.restaurant_id %}
+                                    {% if res_list.vendor_id == request.user.id %}
+                                        {% if order.status == 'inprogress' %}
+                                            <li style="background-color: #dc3545;" >
+                                                <a href="#" class="photo"><img src="{{ order.menu.picture.url }}" class="cart-thumb" alt="" /></a>
+                                                <h1>Order โดย : {{ order.customer.fname }}</h1>
+                                                <p>ราคา : {{ order.total_price }}</p>
+                                                <p>การจ่ายเงิน : {{ order.payment }}</p>
+                                                <p>ชื่ออาหาร : {{ order.menu.name }}</p>
+                                                <p>สถานะ : {{ order.status }}</p>
+                                                <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-danger" style="width: 80px;margin-top: 20px;">Delete</a>
+                                                <a href='{% url "success_order" order_id=order.id %}' class="btn btn-success" style="width: 80px;margin-top: 20px;">Success</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        {% for order in orderlist %}
+                            <li >
                                 <a href="#" class="photo"><img src="{{ order.menu.picture.url }}" class="cart-thumb" alt="" /></a>
                                 <h6>{{ order.menu.name }}</h6>
                                 <p>{{ order.unit }}x - <span class="price">${{ order.menu.price }}</span></p>
@@ -134,12 +148,12 @@
                                 <a href='{% url "minus_order" order_id=order.id %}' class="btn btn-primary" style="width: 40px;margin-top: 20px;">-</a>
                                 <a href='{% url "delete_order" order_id=order.id %}' class="btn btn-primary" style="margin-top: 20px;">Delete</a>
                             </li>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
                         <li class="total">
                             <a href="#" class="btn btn-default hvr-hover btn-cart">CHECK OUT</a>
-                            <span class="float-right"><strong>Total</strong>: ${{ order.total_price }}</span>
+                            <span class="float-right"><strong>Total</strong>: ${{ order_list.total_price }}</span>
                         </li>
+                    {% endif %}
                     </ul>
                 </li>
             </div>

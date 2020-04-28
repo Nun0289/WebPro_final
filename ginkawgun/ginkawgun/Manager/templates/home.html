@@ -54,7 +54,6 @@
                                                         <img src="{{ menu.picture.url }}" class="img-fluid" alt="Image" style='width: 500px;height: 250px;'>
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                 {% for res in res_list %}
                                                                 {% if menu.restaurant_id == res.id and res.vendor_id == user.id%}
                                                                 <li><a href="{% url 'menu_update' menu_id=menu.id %}" data-toggle="tooltip" data-placement="right" title="" data-original-title="Update"><i class="fas fa-sync-alt"></i></a></li>

@@ -19,6 +19,7 @@
                     <div class="right-product-box">
                         <div class="product-item-filter row">
                             <div class="col-12 col-sm-8 text-center text-sm-left">
+                            <a href='{% url "feedback" ven_id=res.vendor.user.id %}' class='btn btn-primary'>Feedback</a>
                             {% comment %} <a href='{% url "order" %}' class='btn btn-primary'>ดูรายการ Order ทั้งหมด</a> <!-- ใส่เช็คว่าเป็นเฉพาะเจ้าของร้าน --> {% endcomment %}
                             </div>
                         </div>
